@@ -37,7 +37,7 @@ def home():
     return jsonify({"message": "This is my backend application"}), 200
 
 # **Signup Route**
-@app.route('/signup', methods=['POST'])
+@app.route('/api/signup', methods=['POST'])
 def signup():
     data = request.json
     hashed_password = bcrypt.generate_password_hash(data['password']).decode('utf-8')
@@ -51,7 +51,7 @@ def signup():
         return jsonify({"message": "User already exists"}), 400
 
 # **Login Route**
-@app.route('/login', methods=['POST'])
+@app.route('/api/login', methods=['POST'])
 def login():
     data = request.json
     user = User.query.filter_by(email=data['email']).first()
