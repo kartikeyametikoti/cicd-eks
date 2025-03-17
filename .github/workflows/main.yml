@@ -1,1 +1,37 @@
+name: cicd-ec2
 
+on:
+  push:
+    branches:
+      - main
+env:
+  ECR_REPO_frontend: ${{ secrets.ECR_REPO_frontend }}  
+  ECR_REPO_backend: ${{ secrets.ECR_REPO_backend }}
+  IMAGE_TAG: latest
+  ECR_password: ${{ secrets.ECR_password }}
+
+jobs:
+  build_image_deploy:
+    runs-on: ubuntu-latest  
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v3
+      - name: Log in to AWS 
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.Access_key_id }}  
+          aws-secret-access-key: ${{ secrets.Access_key }}  
+          aws-region: us-east-1
+      - name: Login to AWS ECR
+        run: | 
+           aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin $ECR_password
+      - name: Build Docker image
+        run: |
+          docker build -t backend ./backend/
+          docker build -t frontend ./frontend/
+      - name: Push image to ECR
+        run: |
+          docker tag backend:latest ${{ secrets.ECR_REPO_backend }}:latest
+          docker tag frontend:latest ${{ secrets.ECR_REPO_frontend }}:latest
+          docker push ${{ secrets.ECR_REPO_backend }}:latest
+          docker push ${{ secrets.ECR_REPO_frontend }}:latest
