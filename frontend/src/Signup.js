@@ -14,7 +14,7 @@ function Signup() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://backend-service.namespace.svc.cluster.local/signup", formData);
+      const response = await axios.post("http://nginx.rhat.cloud/api/signup", formData);
       alert(response.data.message);
       navigate("/login");
     } catch (error) {
