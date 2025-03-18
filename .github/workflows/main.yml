@@ -67,6 +67,6 @@ jobs:
           helm upgrade --install myapp ./myapp -f myapp/values.yaml
       - name: Restart Deployments
         run: |
-         kubectl rollout restart deployment backend-deployment
-         kubectl rollout restart deployment frontend-deployment
+         kubectl rollout restart deployment ${{ secrets.BACKEND_DEPLOYMENT_NAME}}
+         kubectl rollout restart deployment ${{ secrets.FRONTEND_DEPLOYMENT_NAME}}
          
