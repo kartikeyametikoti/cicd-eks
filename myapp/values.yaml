@@ -1,0 +1,22 @@
+ingress:
+  host: aa9281914f5a44ccd90f4d43084efa5e-1259983334.us-east-1.elb.amazonaws.com
+frontend:
+  replicas: 2
+  image:
+    repository: 869935092862.dkr.ecr.us-east-1.amazonaws.com/frontend
+    tag: latest
+  service-type: ClusterIP  # Can be ClusterIP, NodePort, or LoadBalancer
+
+backend:
+  replicas: 2
+  image:
+    repository: 869935092862.dkr.ecr.us-east-1.amazonaws.com/backend
+    tag: latest
+  env:
+    - name: FLASK_RUN_HOST
+      value: "0.0.0.0"
+  servicetype: ClusterIP  # Can be ClusterIP, NodePort, or LoadBalancer
+
+mysql:
+  servicetype: ClusterIP  # MySQL service type, usually ClusterIP for internal communication
+
