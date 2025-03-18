@@ -32,7 +32,7 @@ with app.app_context():
     db.create_all()
 
 # **Root Route ("/api")**
-@app.route('/', methods=['GET'])
+@app.route('/api', methods=['GET'])
 def home():
     return jsonify({"message": "This is my backend application"}), 200
 
