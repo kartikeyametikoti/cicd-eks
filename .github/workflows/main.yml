@@ -37,6 +37,7 @@ jobs:
           docker push ${{ secrets.ECR_REPO_frontend }}:latest
     
   deploy_to_EKS:
+    needs: build_image_deploy
     runs-on: ubuntu-latest  
     steps:
       - name: Checkout source code
