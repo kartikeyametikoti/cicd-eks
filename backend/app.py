@@ -38,7 +38,7 @@ def home():
     return jsonify({"message": "This is my backend application"}), 200
 
 # **Signup Route**
-@app.route('/signup', methods=['POST'])
+@app.route('/api/signup', methods=['POST'])
 def signup():
     data = request.json
     hashed_password = bcrypt.generate_password_hash(data['password']).decode('utf-8')
