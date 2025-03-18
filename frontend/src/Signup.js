@@ -14,7 +14,7 @@ function Signup() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://aeceb380bb0ac443db1edb403450acfd-1851565029.us-east-1.elb.amazonaws.com/signup", formData);
+      const response = await axios.post("http://backend-service.namespace.svc.cluster.local/signup", formData);
       alert(response.data.message);
       navigate("/login");
     } catch (error) {
