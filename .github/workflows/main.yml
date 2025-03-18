@@ -60,7 +60,7 @@ jobs:
 
       - name: Update kubeconfig for EKS
         run: |
-          aws eks update-kubeconfig --region us-east-1 --name kartik-cluster
+          aws eks update-kubeconfig --region ${{ secrets.AWS_region}} --name kartik-cluster
 
       - name: Deploy with Helm
         run: |
