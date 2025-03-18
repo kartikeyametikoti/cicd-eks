@@ -31,7 +31,7 @@ class User(db.Model):
 with app.app_context():
     db.create_all()
 
-# **Root Route ("/")**
+# **Root Route ("/api")**
 @app.route('/', methods=['GET'])
 def home():
     return jsonify({"message": "This is my backend application"}), 200
