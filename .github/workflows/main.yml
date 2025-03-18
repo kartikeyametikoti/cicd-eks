@@ -35,3 +35,37 @@ jobs:
           docker tag frontend:latest ${{ secrets.ECR_REPO_frontend }}:latest
           docker push ${{ secrets.ECR_REPO_backend }}:latest
           docker push ${{ secrets.ECR_REPO_frontend }}:latest
+    
+  deploy_to_EKS:
+    runs-on: ubuntu-latest  
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v3
+      - name: Log in to AWS 
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.Access_key_id }}  
+          aws-secret-access-key: ${{ secrets.Access_key }}  
+          aws-region: us-east-1   
+      - name: Install kubectl
+        run: |
+          curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+          chmod +x kubectl
+          sudo mv kubectl /usr/local/bin/
+
+      - name: Install Helm
+        run: |
+          curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+
+      - name: Update kubeconfig for EKS
+        run: |
+          aws eks update-kubeconfig --region us-east-1 --name kartik-cluster
+
+      - name: Deploy with Helm
+        run: |
+          helm upgrade --install myapp ./myapp -f myapp/values.yaml
+      - name: Restart Deployments
+        run: |
+         kubectl rollout restart deployment backend
+         kubectl rollout restart deployment frontend
+         
