@@ -10,10 +10,10 @@ CORS(app)
 bcrypt = Bcrypt(app)
 
 # Database Configuration (Replace with your AWS RDS credentials)
-DB_HOST = "mysql-service"
-DB_USER = "kartikuser"
-DB_PASSWORD = "password"
-DB_NAME = "kartikdatabase"
+DB_HOST = ${{ secrets.DB_HOST }}
+DB_USER = ${{ secrets.DB_USER }}
+DB_PASSWORD = ${{ secrets.DB_PASSWORD }}
+DB_NAME = ${{ secrets.DB_NAME }}
 
 app.config['SQLALCHEMY_DATABASE_URI'] = f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME}"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -34,7 +34,7 @@ with app.app_context():
 # **Root Route ("/api")**
 @app.route('/api', methods=['GET'])
 def home():
-    return jsonify({"message": "This is my backend application normal"}), 200
+    return jsonify({"message": "This is my backend application now"}), 200
 
 # **Signup Route**
 @app.route('/api/signup', methods=['POST'])
