@@ -1,5 +1,5 @@
 ingress:
-  host: "${{ secrets.BACKEND_URL }}"
+  host: aa7fe1989b7284f8883c723c53771037-b02f2dd49f0811c4.elb.us-east-1.amazonaws.com
 frontend:
   replicas: 2
   image:
