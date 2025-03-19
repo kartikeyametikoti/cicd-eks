@@ -10,10 +10,10 @@ CORS(app)
 bcrypt = Bcrypt(app)
 
 # Database Configuration (Replace with your AWS RDS credentials)
-DB_HOST = ${{ secrets.DB_HOST }}
-DB_USER = ${{ secrets.DB_USER }}
-DB_PASSWORD = ${{ secrets.DB_PASSWORD }}
-DB_NAME = ${{ secrets.DB_NAME }}
+DB_HOST = "mysql-service"
+DB_USER = "kartikuser"
+DB_PASSWORD = "password"
+DB_NAME = "kartikdatabase"
 
 app.config['SQLALCHEMY_DATABASE_URI'] = f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME}"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
