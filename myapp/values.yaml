@@ -1,5 +1,5 @@
 ingress:
-  host: ${{ secrets.BACKEND_URL }}
+  host: "${{ secrets.BACKEND_URL }}"
 frontend:
   replicas: 2
   image:
