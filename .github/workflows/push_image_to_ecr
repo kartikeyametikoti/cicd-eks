@@ -1,5 +1,5 @@
 
-name: cicd-ec2
+name: cicd-ecr
 
 on:
   push:
